@@ -1,0 +1,9 @@
+{
+  "name": "integrity-3-major-x",
+  "version": "1.0.0",
+  "description": "\"4.x\" — major pinned, any minor and patch within major 4.",
+  "license": "ISC",
+  "dependencies": {
+    "express": "4.x"
+  }
+}

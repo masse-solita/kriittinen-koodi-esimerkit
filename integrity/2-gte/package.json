@@ -1,0 +1,9 @@
+{
+  "name": "integrity-2-gte",
+  "version": "1.0.0",
+  "description": "\">=4.0.0\" — any version equal to or above 4.0.0 (including v5, v6, ...).",
+  "license": "ISC",
+  "dependencies": {
+    "express": ">=4.0.0"
+  }
+}

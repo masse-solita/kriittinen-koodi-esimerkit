@@ -1,0 +1,9 @@
+{
+  "name": "integrity-4-caret",
+  "version": "1.0.0",
+  "description": "\"^4.18.0\" — caret: allows minor and patch updates within major 4. npm default.",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.0"
+  }
+}

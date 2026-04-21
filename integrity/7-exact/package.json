@@ -1,0 +1,9 @@
+{
+  "name": "integrity-7-exact",
+  "version": "1.0.0",
+  "description": "\"4.18.2\" — exact version pin. Safest.",
+  "license": "ISC",
+  "dependencies": {
+    "express": "4.18.2"
+  }
+}

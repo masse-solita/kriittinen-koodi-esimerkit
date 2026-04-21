@@ -1,0 +1,9 @@
+{
+  "name": "integrity-1-wildcard",
+  "version": "1.0.0",
+  "description": "\"*\" — accepts any version. Most dangerous.",
+  "license": "ISC",
+  "dependencies": {
+    "express": "*"
+  }
+}
