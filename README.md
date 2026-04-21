@@ -3,7 +3,7 @@ Webinaarisarjan esimerkkejä.
 
 ## Esimerkki 1: postinstall
 
-Hakemistossa *project* on npm-projekti, joka riippuu hakemistossa *not-a-real-dependency* olevasta npm-paketista. Jälkimmäisessä on postinstall-skripti, joka varastaa:
+Hakemistossa *postinstall/project* on npm-projekti, joka riippuu hakemistossa *not-a-real-dependency* olevasta npm-paketista. Jälkimmäisessä on postinstall-skripti, joka varastaa:
 - Ympäristömuuttujan *FAKE_AUTH_TOKEN*
 - Kotihakemistossa olevan tiedoston *~/.fake/key*
 
