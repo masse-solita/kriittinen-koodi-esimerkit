@@ -1,0 +1,90 @@
+---
+# ZAP Automation Framework configuration
+# Target: app running on host at port 3000, accessed from within Docker via host.docker.internal
+# Run: docker run -v $(pwd)/reports:/zap/reports ghcr.io/zaproxy/zaproxy:stable zap.sh -cmd -autorun /zap/wrk/zap.yaml
+
+env:
+  contexts:
+    - name: "target"
+      urls:
+        - "http://host.docker.internal:3001"
+      includePaths:
+        - "http://host.docker.internal:3001.*"
+      excludePaths: []
+  parameters:
+    failOnError: true
+    failOnWarning: false
+    progressToStdout: true
+
+jobs:
+  # 1. Traditional spider — crawls all linked pages
+  - type: spider
+    name: "Spider"
+    parameters:
+      context: "target"
+      url: "http://host.docker.internal:3001"
+      maxDuration: 5          # minutes
+      maxDepth: 10
+      maxChildren: 0          # 0 = unlimited
+      acceptCookies: true
+      parseComments: true
+      parseRobotsTxt: true
+      parseSitemapXml: true
+      postForm: true
+      processForm: true
+      sendRefererHeader: true
+      threadCount: 5
+
+  # 2. Wait for passive scan to finish processing all spider traffic
+  - type: passiveScan-wait
+    name: "Passive Scan"
+    parameters:
+      maxDuration: 5          # minutes
+
+  # 3. Active scan — attacks the discovered endpoints
+  - type: activeScan
+    name: "Active Scan"
+    parameters:
+      context: "target"
+      policy: "Default Policy"
+      maxScanDurationInMins: 5
+
+  # 4. HTML report
+  - type: report
+    name: "HTML Report"
+    parameters:
+      template: "traditional-html"
+      reportDir: "/zap/reports"
+      reportFile: "zap-report.html"
+      reportTitle: "ZAP DAST Security Report"
+      reportDescription: "Automated DAST scan — spider, passive and active scan"
+    risks:
+      - high
+      - medium
+      - low
+      - info
+    confidences:
+      - confirmed
+      - high
+      - medium
+      - low
+
+  # 5. JSON report (machine-readable, suitable for CI pipelines)
+  - type: report
+    name: "JSON Report"
+    parameters:
+      template: "traditional-json"
+      reportDir: "/zap/reports"
+      reportFile: "zap-report.json"
+      reportTitle: "ZAP DAST Security Report"
+      reportDescription: "Automated DAST scan — spider, passive and active scan"
+    risks:
+      - high
+      - medium
+      - low
+      - info
+    confidences:
+      - confirmed
+      - high
+      - medium
+      - low

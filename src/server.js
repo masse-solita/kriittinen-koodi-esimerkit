@@ -1,7 +1,7 @@
 const express = require("express");
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 const radioFrequencies = {
   data: [
@@ -48,6 +48,34 @@ const radioFrequencies = {
     source: "Traficom Radio Frequency Registry (demo)",
   },
 };
+
+// INTENTIONALLY VULNERABLE — demo for security webinar only
+// Vuln: reflected XSS — the `search` query parameter is interpolated
+// directly into HTML without sanitization or encoding.
+// ZAP active scan detects this as a high-severity finding.
+app.get("/", (req, res) => {
+  const search = req.query.search || "";
+  res.setHeader("Content-Type", "text/html");
+  res.send(`<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Traficom Radio Frequency Registry</title>
+</head>
+<body>
+  <h1>Traficom Radio Frequency Registry</h1>
+  <p><a href="/frequencies">View all frequency licences (JSON)</a></p>
+
+  <h2>Search licences</h2>
+  <form method="GET" action="/">
+    <input type="text" name="search" placeholder="Search by region or type" value="${search}">
+    <button type="submit">Search</button>
+  </form>
+  <!-- VULNERABLE: user input reflected without encoding -->
+  <p>Search results for: ${search}</p>
+</body>
+</html>`);
+});
 
 app.get("/frequencies", (req, res) => {
   res.json(radioFrequencies);
