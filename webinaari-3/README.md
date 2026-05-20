@@ -6,10 +6,18 @@ Workflow: `.github/workflows/pr.yml`.
 Ajetaan jokaista pull requestia vasten. Ajaa CodeQL-koodiskannauksen ja riippuvuudet skannaavaan dependency reviewin.
 
 ## Esimerkki 2: Agenttinen kehittäminen
-TODO
+
+Hakemistossa `agents/skills/` on neljä agenttiskilliä:
+
+- **Spec Writer** (`spec-writer.md`) — Muuntaa feature-pyynnön tekniseksi spesifikaatioksi
+- **Threat Modeller** (`threat-modeller.md`) — Tuottaa speksistä STRIDE-pohjaisen uhkamallin
+- **Implementer** (`implementer.md`) — Toteuttaa koodin uhkamalli huomioiden
+- **Security Reviewer** (`security-reviewer.md`) — Katselmoi toteutuksen ja ajaa riippuvuustarkistuksen
+
+Agentin workflow on määritelty tiedostossa `.github/copilot-instructions.md`.
 
 ## Esimerkki 3: DAST
-TODO
+Hakemistossa `dast` on esimerkki Checkmarx ZAP-työkalun käytöstä Automation Frameworkin kanssa. Ajo skannaa lokaalisti pyörivää ohjelmistoa (tämän repon juuressa) ja tuottaa siitä raportit HTML- ja JSON-muodossa.
 
 ## Esimerkki 4: Attestaatio ja allekirjoitus
 Workflow: `.github/workflows/release.yml`
