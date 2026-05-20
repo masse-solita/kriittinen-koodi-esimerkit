@@ -71,7 +71,7 @@ app.get("/", (req, res) => {
     <input type="text" name="search" placeholder="Search by region or type" value="${search}">
     <button type="submit">Search</button>
   </form>
-  <!-- VULNERABLE: user input reflected without encoding -->
+  <h3>VULNERABLE: user input reflected without encoding</h3>
   <p>Search results for: ${search}</p>
 </body>
 </html>`);
