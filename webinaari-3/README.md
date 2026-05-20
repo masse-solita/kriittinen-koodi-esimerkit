@@ -22,8 +22,8 @@ Triggaa kun Git-tagi `v*` pushataan. Tekee kolme asiaa:
 **Verifiointi GitHub CLI:llä:**
 ```bash
 gh attestation verify \
-  oci://ghcr.io/<org>/<repo>:<tagi> \
-  --repo <org>/<repo>
+  oci://ghcr.io/masse-solita/kriittinen-koodi-esimerkit:v1.0.0 \
+  --repo masse-solita/kriittinen-koodi-esimerkit
 ```
 
 ### 2. Avaimeton allekirjoitus cosignilla (Sigstore)
@@ -32,9 +32,9 @@ gh attestation verify \
 **Verifiointi cosignilla:**
 ```bash
 cosign verify \
-  --certificate-identity-regexp "https://github.com/<org>/<repo>/" \
+  --certificate-identity-regexp "https://github.com/masse-solita/kriittinen-koodi-esimerkit/" \
   --certificate-oidc-issuer "https://token.actions.githubusercontent.com" \
-  ghcr.io/<org>/<repo>:<tagi>
+  ghcr.io/masse-solita/kriittinen-koodi-esimerkit:v1.0.0
 ```
 
 ### 3. GitHub Release
